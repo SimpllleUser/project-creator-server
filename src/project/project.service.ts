@@ -15,19 +15,26 @@ export class ProjectService {
     return project;
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll() {
+    const projects = await this.projectRepository.findAll();
+    return projects;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: number) {
+    const project = await this.projectRepository.findOne({ where: { id } });
+    return project;
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(id: number, updateProjectDto: UpdateProjectDto) {
+    const project = await this.projectRepository.findOne({
+      where: { id },
+    });
+    const updatedProject = await project.update(updateProjectDto);
+    return updatedProject;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: number) {
+    const deletedProject = this.projectRepository.destroy({ where: { id } });
+    return deletedProject;
   }
 }
