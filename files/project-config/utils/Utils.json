@@ -1,0 +1,5 @@
+{
+    "source-code": {
+        "static-code": "export default class Util {\n  constructor() {\n    this.statusCode = null;\n    this.type = null;\n    this.data = null;\n    this.message = null;\n  }\n\n  setSuccess(statusCode, message, data) {\n    this.statusCode = statusCode;\n    this.message = message;\n    this.data = data;\n    this.type = 'success';\n  }\n\n  setError(statusCode, message) {\n    this.statusCode = statusCode;\n    this.message = message;\n    this.type = 'error';\n  }\n\n  send(res) {\n    const result = {\n      status: this.type,\n      message: this.message,\n      data: this.data,\n    };\n\n    if (this.type === 'success') {\n      return res.status(this.statusCode).json(result);\n    }\n    return res.status(this.statusCode).json({\n      status: this.type,\n      message: this.message,\n    });\n  }\n}"
+    }
+}

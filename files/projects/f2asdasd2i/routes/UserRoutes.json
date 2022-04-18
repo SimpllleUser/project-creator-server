@@ -1,0 +1,57 @@
+{
+    "source-code": {
+        "imports": [
+            {
+                "type": "controller",
+                "name": "UserController" 
+            }
+        ],
+        "init-module": [
+            "import { Router } from 'express'",
+            "const router = Router()"
+        ],
+        "routers": [
+            {
+                "name": "get",
+                "path": "'/'",
+                "controller": "UserController",
+                "method": {
+                    "name": "getAll"
+                }
+            },
+            {
+                "name": "post",
+                "path": "'/'",
+                "controller": "UserController",
+                "method": {
+                    "name": "addOne"
+                }
+            },
+            {
+                "name": "get",
+                "path": "'/:id'",
+                "controller": "UserController",
+                "method": {
+                    "name": "getOne"
+                }
+            },
+            {
+                "name": "put",
+                "path": "'/:id'",
+                "controller": "UserController",
+                "method": {
+                    "name": "updateOne"
+                }
+            },
+            {
+                "name": "delete",
+                "path": "'/:id'",
+                "controller": "UserController",
+                "method": {
+                    "name": "deleteOne"
+                }
+            }
+        ],
+        "static-code": "export default router;"
+    }
+}
