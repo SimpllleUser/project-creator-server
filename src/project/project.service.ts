@@ -3,10 +3,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Project } from './entities/project.entity';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = require('fs');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { promisify } = require('util');
+import { createFile } from '../helper/storage-helper';
 
 @Injectable()
 export class ProjectService {
@@ -16,9 +13,10 @@ export class ProjectService {
 
   async create(createProjectDto: CreateProjectDto) {
     const project = await this.projectRepository.create(createProjectDto);
-    const res = await promisify(fs.writeFile)(
-      `./files/${project.title}.json`,
-      JSON.stringify(project),
+    const res = await createFile(
+      './files',
+      `${project.title}.json`,
+      JSON.stringify(project, null, 4),
     );
     return { project, res };
   }

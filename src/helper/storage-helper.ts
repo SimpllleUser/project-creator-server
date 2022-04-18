@@ -1,21 +1,19 @@
-import fs from 'fs';
-import { promisify } from 'util';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { promisify } = require('util');
 
 export const checkIfFileOrDirectoryExists = (path: string): boolean => {
-  return fs?.existsSync(path);
+  return fs.existsSync(path);
 };
 
 export const getFile = async (
   path: string,
-  encoding: any,
+  encoding: string,
 ): Promise<string | Buffer> => {
   const readFile = promisify(fs.readFile);
-
-  if (encoding) {
-    return readFile(path, encoding);
-  } else {
-    return readFile(path, {});
-  }
+  const encode = encoding || {};
+  return readFile(path, encode);
 };
 
 export const createFile = async (
@@ -23,10 +21,12 @@ export const createFile = async (
   fileName: string,
   data: string,
 ): Promise<void> => {
-  // if (!checkIfFileOrDirectoryExists(path)) {
-  //   fs.mkdirSync(path);
-  // }
+  if (!checkIfFileOrDirectoryExists(path)) {
+    fs.mkdirSync(path);
+  }
+
   const writeFile = promisify(fs.writeFile);
+
   return await writeFile(`${path}/${fileName}`, data, 'utf8');
 };
 
