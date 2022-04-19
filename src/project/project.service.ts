@@ -3,7 +3,10 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Project } from './entities/project.entity';
-import { createProjectTemplateByName, deleteProjectById } from "../helper/project-template-helper";
+import {
+  createProjectTemplateById,
+  deleteProjectById,
+} from '../helper/project-template-helper';
 
 @Injectable()
 export class ProjectService {
@@ -13,8 +16,8 @@ export class ProjectService {
 
   async create(createProjectDto: CreateProjectDto) {
     const project = await this.projectRepository.create(createProjectDto);
-    const res = await deleteProjectById(12);
-    return { project, res };
+    await createProjectTemplateById(project?.id);
+    return project;
   }
 
   async findAll() {
@@ -36,7 +39,10 @@ export class ProjectService {
   }
 
   async remove(id: number) {
-    const deletedProject = this.projectRepository.destroy({ where: { id } });
-    return deletedProject;
+    const deletedProject = await this.projectRepository.destroy({
+      where: { id },
+    });
+    await deleteProjectById(id);
+    return Boolean(deletedProject);
   }
 }

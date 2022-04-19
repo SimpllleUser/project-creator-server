@@ -5,7 +5,7 @@ import {
 const projectConfigPath = './files/project-config';
 const projectsPath = './files/projects';
 
-export const createProjectTemplateByName = async (name) => {
+export const createProjectTemplateById = async (name) => {
   return await copySourceDirectoryToDirectory(
     projectConfigPath,
     `${projectsPath}/${name}`,
