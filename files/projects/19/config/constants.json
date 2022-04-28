@@ -1,0 +1,8 @@
+{
+    "source-code": {
+        "export-default": {
+            "PRODUCTION": "production",
+            "DEVELOPMENT": "development"
+        }
+    }
+}

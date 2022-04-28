@@ -1,0 +1,36 @@
+{
+    "source-code": {
+        "model": {
+            "name": "User",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "primaryKey": true,
+                    "type": "INTEGER",
+                    "autoIncrement": true,
+                    "allowNull": false
+                },
+                "username": {
+                    "type": "STRING",
+                    "allowNull": false,
+                    "unique": true
+                },
+                "token": {
+                    "type": "STRING",
+                    "allowNull": true
+                },
+                "password": {
+                    "type": "STRING",
+                    "allowNull": false
+                }
+            },
+            "table-params": {
+                "timestamps": true,
+                "paranoid": true,
+                "underscored": true,
+                "freezeTableName": true,
+                "tableName": "'users'"
+            }
+        }
+    }
+}

@@ -1,0 +1,321 @@
+{
+    "source-code": {
+        "service": {
+            "name": "UserService",
+            "methods": [
+                {
+                    "name": "getAll",
+                    "params": [],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "model",
+                            "model": {
+                                "name": "User",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "findAll",
+                                    "params": [],
+                                    "resultTo": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "addOne",
+                    "params": [
+                        {
+                            "type": "variable",
+                            "name": "newUser"
+                        }
+                    ],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "model",
+                            "model": {
+                                "name": "User",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "create",
+                                    "params": [
+                                        {
+                                            "type": "variable",
+                                            "name": "newUser"
+                                        }
+                                    ],
+                                    "resultTo": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateOne",
+                    "params": [
+                        {
+                            "type": "variable",
+                            "name": "id"
+                        },
+                        {
+                            "type": "variable",
+                            "name": "updateUser"
+                        }
+                    ],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "model",
+                            "model": {
+                                "name": "User",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "findOne",
+                                    "params": [
+                                        {
+                                            "type": "variable",
+                                            "name": "updateUser"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "structure": {
+                                                "where": {
+                                                    "id": "id"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "resultTo": {
+                                        "variable": {
+                                            "type": "const",
+                                            "name": "userToUpdate"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "type": "conditions",
+                            "conditions": {
+                                "params": [
+                                    {
+                                        "type": "parameter",
+                                        "prefix": "",
+                                        "name": "userToUpdate"
+                                    }
+                                ],
+                                "isTrue": {
+                                    "actions": [
+                                        {
+                                            "model": {
+                                                "name": "User",
+                                                "method": {
+                                                    "types": [
+                                                        "await"
+                                                    ],
+                                                    "name": "update",
+                                                    "params": [
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "updateUser"
+                                                        },
+                                                        {
+                                                            "type": "object",
+                                                            "structure": {
+                                                                "where": {
+                                                                    "id": "id"
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "resultTo": null
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getOne",
+                    "params": [
+                        {
+                            "type": "variable",
+                            "name": "id"
+                        }
+                    ],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "model",
+                            "model": {
+                                "name": "User",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "findOne",
+                                    "params": [
+                                        {
+                                            "type": "object",
+                                            "structure": {
+                                                "where": {
+                                                    "id": "id"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "resultTo": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getOneByUsername",
+                    "params": [
+                        {
+                            "type": "variable",
+                            "name": "username"
+                        }
+                    ],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "model",
+                            "model": {
+                                "name": "User",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "findOne",
+                                    "params": [
+                                        {
+                                            "type": "object",
+                                            "structure": {
+                                                "where": {
+                                                    "username": "username"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "resultTo": null
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteOne",
+                    "params": [
+                        {
+                            "type": "variable",
+                            "name": "id"
+                        }
+                    ],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "model",
+                            "model": {
+                                "name": "User",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "findOne",
+                                    "params": [
+                                        {
+                                            "type": "variable",
+                                            "name": "updateUser"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "structure": {
+                                                "where": {
+                                                    "id": "id"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "resultTo": {
+                                        "variable": {
+                                            "type": "const",
+                                            "name": "userToDelete "
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "type": "conditions",
+                            "conditions": {
+                                "params": [
+                                    {
+                                        "type": "parameter",
+                                        "prefix": "",
+                                        "name": "userToDelete "
+                                    }
+                                ],
+                                "isTrue": {
+                                    "actions": [
+                                        {
+                                            "model": {
+                                                "name": "User",
+                                                "method": {
+                                                    "types": [
+                                                        "await"
+                                                    ],
+                                                    "name": "destroy",
+                                                    "params": [
+                                                        {
+                                                            "type": "object",
+                                                            "structure": {
+                                                                "where": {
+                                                                    "id": "id"
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "resultTo": null
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

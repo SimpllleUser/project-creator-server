@@ -1,0 +1,25 @@
+{
+    "source-code": {
+        "imports": [
+            {
+                "type": "controller",
+                "name": "AuthController"
+            }
+        ],
+        "init-module": [
+            "import { Router } from 'express'",
+            "const router = Router()"
+        ],
+        "routers": [
+            {
+                "name": "post",
+                "path": "'/login'",
+                "controller": "AuthController",
+                "method": {
+                    "name": "login"
+                }
+            }
+        ],
+        "static-code": "export default router;"
+    }
+}

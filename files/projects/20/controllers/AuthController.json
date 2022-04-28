@@ -1,0 +1,191 @@
+{
+    "source-code": {
+        "imports": [
+            {
+                "type": "service",
+                "name": "UserService"
+            },
+            {
+                "type": "util",
+                "name": "Util"
+            },
+            {
+                "type": "util",
+                "name": "AuthUtils"
+            }
+        ],
+        "init-module": [
+            "const util = new Util()"
+        ],
+        "controller": {
+            "name": "AuthController",
+            "methods": [
+                {
+                    "name": "login",
+                    "params": [
+                        {
+                            "type": "variable",
+                            "name": "req"
+                        },
+                        {
+                            "type": "variable",
+                            "name": "res"
+                        }
+                    ],
+                    "types": [
+                        "static",
+                        "async"
+                    ],
+                    "actions": [
+                        {
+                            "type": "service",
+                            "service": {
+                                "name": "UserService",
+                                "method": {
+                                    "types": [
+                                        "await"
+                                    ],
+                                    "name": "getOneByUserName",
+                                    "params": [
+                                        {
+                                            "type": "variable",
+                                            "name": "req.body.username"
+                                        }
+                                    ],
+                                    "resultTo": {
+                                        "variable": {
+                                            "type": "const",
+                                            "name": "theUser"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "type": "conditions",
+                            "conditions": {
+                                "params": [
+                                    {
+                                        "type": "parameter",
+                                        "prefix": "",
+                                        "name": "theUser"
+                                    }
+                                ],
+                                "isTrue": {
+                                    "actions-controller": [
+                                        {
+                                            "type": "service",
+                                            "service": {
+                                                "name": "AuthUtils",
+                                                "method": {
+                                                    "types": ["await"],
+                                                    "name": "generateJwtToken",
+                                                    "params": [
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "theUser"
+                                                        }
+                                                    ],
+                                                    "resultTo": {
+                                                        "variable": {
+                                                            "type": "",
+                                                            "name": "theUser.token"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "service",
+                                            "service": {
+                                                "name": "theUser",
+                                                "method": {
+                                                    "types": ["await"],
+                                                    "name": "save",
+                                                    "params": [],
+                                                    "resultTo": {
+                                                        "variable": {
+                                                            "type": "const",
+                                                            "name": "savedUser"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "service",
+                                            "service": {
+                                                "name": "util",
+                                                "method": {
+                                                    "types": [],
+                                                    "name": "setSuccess",
+                                                    "params": [
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "200"
+                                                        },
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "'User retrieved'"
+                                                        },
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "savedUser"
+                                                        }
+                                                    ],
+                                                    "resultTo": "none"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "isFalse": {
+                                    "actions-controller": [
+                                        {
+                                            "type": "service",
+                                            "service": {
+                                                "name": "util",
+                                                "method": {
+                                                    "types": [],
+                                                    "name": "setSuccess",
+                                                    "params": [
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "200"
+                                                        },
+                                                        {
+                                                            "type": "variable",
+                                                            "name": "'Not found'"
+                                                        }
+                                                    ],
+                                                    "resultTo": "none"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "type": "service",
+                            "service": {
+                                "name": "util",
+                                "method": {
+                                    "types": [],
+                                    "name": "send",
+                                    "params": [
+                                        {
+                                            "type": "variable",
+                                            "name": "res"
+                                        }
+                                    ],
+                                    "resultTo": null
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

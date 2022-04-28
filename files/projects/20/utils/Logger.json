@@ -1,0 +1,16 @@
+{
+    "source-code": {
+        "imports": [
+            {
+                "type": "global",
+                "name": "winston"
+            }
+        ],
+        "init-module": [
+            "import config from '../config/config'",
+            "import constants from '../config/constants'",
+            "export const logger = configureWinstonLogger()"
+        ],
+        "static-code": "function configureWinstonLogger() {\n  let loggerOptions = null;\n  if (config.app.environment === constants.PRODUCTION) {\n    loggerOptions = {\n      transports: [\n        new winston.transports.Console({ level: config.logger.levelProd })\n      ],\n      format: winston.format.combine(\n        winston.format.timestamp({\n          format: 'DD-MM-YYYY HH:mm:ss'\n        }),\n        winston.format.json()\n      )\n    };\n  } else {\n    loggerOptions = {\n      transports: [\n        new winston.transports.Console({ level: config.logger.levelDev })\n      ],\n      format: winston.format.combine(\n        winston.format.colorize(),\n        winston.format.simple()\n      )\n    };\n  }\n  return winston.createLogger(loggerOptions);\n}"
+    }
+}
