@@ -1,0 +1,18 @@
+{
+    "source-code": {
+        "imports": [
+            {
+                "type": "global",
+                "name": "bcrypt"
+            },
+             {
+                "type": "global",
+                "name": "jwt"
+            }
+        ],
+        "init-module": [
+            "import config from '../config/config'"
+        ],
+        "static-code": "export default class AuthUtils {\n  static async generatePasswordHash(password) {\n    const saltRounds = 10;\n    const pswd = escape(password);\n    const hash = await bcrypt.hash(pswd, saltRounds);\n    if (hash) {\n      return hash;\n    }\n    return null;\n  }\n\n  static async checkPassword(password, hash) {\n    const pswd = escape(password);\n    const match = await bcrypt.compare(pswd, hash.toString());\n    if (match) {\n      return true;\n    }\n    return false;\n  }\n\n  static generateJwtToken(user) {\n    const plainJsonUser = {\n      id: user.id,\n      username: user.username\n    };\n    let accesToken = jwt.sign(plainJsonUser, config.jwt.tokenSecret, {\n      expiresIn: config.jwt.expirationTime\n    });\n    return accesToken;\n  }\n\n  static async validateJwtToken(req, res, next) {\n    const authHeader = req.headers['authorization'];\n    const token = authHeader && authHeader.split(' ')[1];\n    if (token == null) {\n      return res.sendStatus(401);\n    }\n\n    jwt.verify(token, config.jwt.tokenSecret, (err, user) => {\n      if (err) {\n        return res.sendStatus(403);\n      }\n      req.user = user;\n      next();\n    });\n  }\n\n  static basicauth(user) {\n    let accesToken = jwt.sign(user.username, config.jwt.tokenSecret);\n    return accesToken;\n  }\n}"
+    }
+}

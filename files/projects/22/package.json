@@ -1,0 +1,23 @@
+{
+  "name": "diplom-template-structure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "directory-tree": "^3.2.2",
+    "fs-extra": "^10.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimpllleUser/project-creator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimpllleUser/project-creator/issues"
+  },
+  "homepage": "https://github.com/SimpllleUser/project-creator#readme"
+}
