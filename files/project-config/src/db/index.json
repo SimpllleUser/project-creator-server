@@ -1,0 +1,28 @@
+{
+    "source-code": {
+        "imports": [
+            {
+                "type": "global",
+                "name": "dotenv"
+            },
+            {
+                "type": "global",
+                "name": "path"
+            },
+            {
+                "type": "global",
+                "name": "fs"
+            }
+        ],
+        "init-module": [
+            "import db_config from './config'",
+            "import global_config from '../config/config'",
+            "import constants from '../config/constants'",
+            "import Sequelize from 'sequelize'",
+            "dotenv.config()",
+            "const basename = path.join(__dirname, '../models')",
+            "const db = {}"
+        ],
+        "static-code": "let sequelize;\n if (global_config.app.environment === constants.PRODUCTION) {\n  sequelize = new Sequelize(\n    db_config.production.database,\n    db_config.production.username,\n    db_config.production.password,\n    {\n      host: db_config.production.host,\n      port: db_config.production.port,\n      dialect: db_config.production.dialect,\n      dialectOption: db_config.production.dialectOption,\n      logging: true\n    }\n  );\n} else {\n  // Developement configuration\n  sequelize = new Sequelize(\n    db_config.development.database,\n    db_config.development.username,\n    db_config.development.password,\n    {\n      dialect: db_config.development.dialect,\n      storage: db_config.development.storage,\n      dialectOption: db_config.development.dialectOption\n    }\n  );\n}\n\nfs.readdirSync(basename).forEach(file => {\n  const model = sequelize.import(path.join(basename, file));\n  db[model.name] = model;\n});\n\nObject.keys(db).forEach(modelName => {\n  if (db[modelName].associate) {\n    db[modelName].associate(db);\n  }\n});\n\ndb.sequelize = sequelize;\ndb.Sequelize = Sequelize;\n\nexport default db;"
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "source-code": {
+        "imports": [
+          "import config from '../src/config/config'",
+          "import { logger } from '../src/utils/Logger'",
+          "import morgan from 'morgan'",
+          "import express from 'express'",
+          "import authUtils from './utils/AuthUtils'",
+          "import userRouter from './routes/UserRoutes'",
+          "import authRoutes from './routes/AuthRoutes'",
+          "import database from '../src/db/index'"
+        ],
+        "constants": [
+            "const port = config.app.port || 3009",
+            "const app = express()"
+        ],
+        "app-use": [
+            "app.use(express.json())",
+            "app.use(express.urlencoded({ extended: false }))",
+            "app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))"
+        ],
+        "route-modules": [
+            "app.use('/api/v1/users', userRouter)",
+            "app.use('/api/v1/authorization', authRoutes)"
+        ],
+        "static-code": "app.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(\n  morgan(':method :url :status :res[content-length] - :response-time ms')\n);\napp.use('/api/v1/users', userRouter);\napp.use('/api/v1/authorization', authRoutes);\ndatabase.sequelize.sync();\napp.get('*', (req, res) =>\n  res.status(200).send({\n    message: 'Welcome to this node API.'\n  })\n);\n\napp.listen(port, () => {\n  logger.info('Server is running on PORT: ' + config.app.port);\n  logger.info('Environment: ' + config.app.environment);\n});\n\nexport default app;"}
+}
