@@ -62,3 +62,25 @@ export const removeDirectory = async (path) => {
     return false;
   }
 };
+export const readDir = async (path: string) => {
+  const readDir = promisify(fs.readdir);
+  try {
+    return await readDir(path);
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+export const getSourceFiles = async (path: string) => {
+  const files = await readDir(path);
+  return await Promise.all(
+    files.map(async (fileName) => {
+      const sourceString = await getFile(`${path}/${fileName}`, 'utf-8');
+      const isSourceString = typeof sourceString === 'string';
+      return {
+        name: fileName,
+        source: isSourceString && JSON.parse(sourceString),
+      };
+    }),
+  );
+};

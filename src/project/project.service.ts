@@ -6,6 +6,7 @@ import { Project } from './entities/project.entity';
 import {
   createProjectTemplateById,
   deleteProjectById,
+  getConfigDB,
 } from '../helper/project-template-helper';
 
 @Injectable()
@@ -44,5 +45,8 @@ export class ProjectService {
     });
     await deleteProjectById(id);
     return Boolean(deletedProject);
+  }
+  async getModels(id: number) {
+    return await getConfigDB(id);
   }
 }

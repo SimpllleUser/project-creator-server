@@ -29,6 +29,10 @@ export class ProjectController {
   findOne(@Param('id') id: string) {
     return this.projectService.findOne(+id);
   }
+  @Get(':id/source')
+  findSource(@Param('id') id: string) {
+    return this.projectService.getModels(+id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
