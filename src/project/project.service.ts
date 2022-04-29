@@ -8,9 +8,15 @@ import {
   deleteProjectById,
   getConfigDB,
 } from '../helper/project-template-helper';
+import { ProjectDBService } from './project.db.service';
 
 @Injectable()
 export class ProjectService {
+  async getTable() {
+    const projectDBService = new ProjectDBService('./src/db/db.sqlite');
+    const res = await projectDBService.getAllDataFromTables();
+    console.log(res);
+  }
   constructor(
     @InjectModel(Project) private projectRepository: typeof Project,
   ) {}

@@ -29,9 +29,16 @@ export class ProjectController {
   findOne(@Param('id') id: string) {
     return this.projectService.findOne(+id);
   }
+
   @Get(':id/source')
   findSource(@Param('id') id: string) {
     return this.projectService.getModels(+id);
+  }
+
+  @Get('/source/table')
+  // getSourceTable(@Param('id') id: string) {
+  getSourceTable() {
+    return this.projectService.getTable();
   }
 
   @Patch(':id')

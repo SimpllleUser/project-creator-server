@@ -1,16 +1,24 @@
-import sqlite3 from 'sqlite3';
-import { Database, open } from 'sqlite';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const sqlite3 = require('sqlite3');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { open } = require('sqlite');
 
-type InitedDataBase = Database<sqlite3.Database, sqlite3.Statement>;
+// type InitedDataBase = Database<sqlite3.Database, sqlite3.Statement>;
 
-export class DBhelper {
-  db: Promise<InitedDataBase>;
-  static db: Database<sqlite3.Database, sqlite3.Statement>;
+export class ProjectDBService {
+  db: Promise<any>;
+  // static db: any;
 
-  static async initDB(path: string) {
-    this.db = await open({
+  //   static async initDB(path: string) {
+  //     this.db = await open({
+  //       filename: path,
+  //       driver: sqlite3.Database,
+  //     });
+  //   }
+  constructor(path) {
+    this.db = open({
       filename: path,
-      driver: sqlite3.Database,
+      driver: sqlite3?.Database,
     });
   }
   async getAlltables() {
