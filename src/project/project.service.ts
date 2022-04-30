@@ -58,6 +58,11 @@ export class ProjectService {
     return await getModels(id);
   }
 
+  async getDbTables(id: number) {
+    const db = new ProjectDBService(id);
+    return await db.getAlltables();
+  }
+
   async getDbTable(id: number, tableName: string) {
     const db = new ProjectDBService(id);
     try {

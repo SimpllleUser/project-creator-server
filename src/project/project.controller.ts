@@ -45,6 +45,11 @@ export class ProjectController {
     return this.projectService.getDBModels(+id);
   }
 
+  @Get(':id/db/tables')
+  getDbTables(@Param('id') id: string) {
+    return this.projectService.getDbTables(+id);
+  }
+
   @Get(':id/db/:tableName')
   getDbTableData(
     @Param('id') id: number,
