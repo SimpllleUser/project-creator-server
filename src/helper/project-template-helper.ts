@@ -17,7 +17,7 @@ export const createProjectTemplateById = async (name) => {
 export const deleteProjectById = async (id) => {
   return await removeDirectory(`${projectsPath}/${id}`);
 };
-export const getConfigDB = async (id: number) => {
+export const getModels = async (id: number) => {
   const dbModelsSource = await getSourceFiles(`${projectsPath}/${id}/models`);
   return dbModelsSource.map(getModelData);
 };

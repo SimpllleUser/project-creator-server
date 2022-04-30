@@ -6,14 +6,15 @@ import { Project } from './entities/project.entity';
 import {
   createProjectTemplateById,
   deleteProjectById,
-  getConfigDB,
+  getModels,
 } from '../helper/project-template-helper';
 import { ProjectDBService } from './project.db.service';
+import { readDir } from 'src/helper/storage-helper';
 
 @Injectable()
 export class ProjectService {
-  async getTable() {
-    const projectDBService = new ProjectDBService('./src/db/db.sqlite');
+  async getTable(id: number) {
+    const projectDBService = new ProjectDBService(id);
     const res = await projectDBService.getAllDataFromTables();
     console.log(res);
   }
@@ -52,7 +53,19 @@ export class ProjectService {
     await deleteProjectById(id);
     return Boolean(deletedProject);
   }
-  async getModels(id: number) {
-    return await getConfigDB(id);
+
+  async getDBModels(id: number) {
+    return await getModels(id);
+  }
+
+  async getDbTable(id: number, tableName: string) {
+    const db = new ProjectDBService(id);
+    try {
+      const table = await db.getDataTable(tableName);
+      return table;
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   }
 }

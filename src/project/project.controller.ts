@@ -30,15 +30,27 @@ export class ProjectController {
     return this.projectService.findOne(+id);
   }
 
-  @Get(':id/source')
-  findSource(@Param('id') id: string) {
-    return this.projectService.getModels(+id);
+  // @Get(':id/source')
+  // findSource(@Param('id') id: string) {
+  //   return this.projectService.getModels(+id);
+  // }
+
+  @Get(':id/source/table')
+  getSourceTable(@Param('id') id: string) {
+    return this.projectService.getTable(+id);
   }
 
-  @Get('/source/table')
-  // getSourceTable(@Param('id') id: string) {
-  getSourceTable() {
-    return this.projectService.getTable();
+  @Get(':id/db/models')
+  getDbModels(@Param('id') id: string) {
+    return this.projectService.getDBModels(+id);
+  }
+
+  @Get(':id/db/:tableName')
+  getDbTableData(
+    @Param('id') id: number,
+    @Param('tableName') tableName: string,
+  ) {
+    return this.projectService.getDbTable(+id, tableName);
   }
 
   @Patch(':id')

@@ -3,21 +3,12 @@ const sqlite3 = require('sqlite3');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { open } = require('sqlite');
 
-// type InitedDataBase = Database<sqlite3.Database, sqlite3.Statement>;
-
 export class ProjectDBService {
   db: Promise<any>;
-  // static db: any;
 
-  //   static async initDB(path: string) {
-  //     this.db = await open({
-  //       filename: path,
-  //       driver: sqlite3.Database,
-  //     });
-  //   }
-  constructor(path) {
+  constructor(projectId) {
     this.db = open({
-      filename: path,
+      filename: `./files/projects/${projectId}/src/db.sqlite`,
       driver: sqlite3?.Database,
     });
   }
