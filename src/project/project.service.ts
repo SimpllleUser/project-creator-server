@@ -7,9 +7,9 @@ import {
   createProjectTemplateById,
   deleteProjectById,
   getModels,
+  updateModels,
 } from '../helper/project-template-helper';
 import { ProjectDBService } from './project.db.service';
-import { readDir } from 'src/helper/storage-helper';
 
 @Injectable()
 export class ProjectService {
@@ -72,5 +72,11 @@ export class ProjectService {
       console.log(err);
       return [];
     }
+  }
+
+  async updateDBModels(id, updateModelDto) {
+    const result = await updateModels(id, updateModelDto);
+    console.log('!', result);
+    return result;
   }
 }

@@ -10,6 +10,7 @@ import {
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { UpdateProjectModelDto } from './dto/project-model.dto';
 
 @Controller('project')
 export class ProjectController {
@@ -43,6 +44,13 @@ export class ProjectController {
   @Get(':id/db/models')
   getDbModels(@Param('id') id: string) {
     return this.projectService.getDBModels(+id);
+  }
+  @Patch(':id/db/models')
+  patchDbModels(
+    @Param('id') id: string,
+    @Body() updateModelDto: UpdateProjectModelDto,
+  ) {
+    return this.projectService.updateDBModels(+id, updateModelDto);
   }
 
   @Get(':id/db/tables')

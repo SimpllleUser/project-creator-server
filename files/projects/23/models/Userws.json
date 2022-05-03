@@ -1,0 +1,41 @@
+{
+    "source-code": {
+        "model": {
+            "table-params": {
+                "timestamps": true,
+                "paranoid": true,
+                "underscored": true,
+                "freezeTableName": true,
+                "tableName": "'users'"
+            },
+            "fields": {
+                "id": {
+                    "primaryKey": true,
+                    "type": "INTEGER",
+                    "autoIncrement": true,
+                    "allowNull": false
+                },
+                "username": {
+                    "type": "STRING",
+                    "allowNull": false,
+                    "unique": true
+                },
+                "token": {
+                    "type": "STRING",
+                    "allowNull": true
+                },
+                "password": {
+                    "type": "STRING",
+                    "allowNull": true,
+                    "autoIncrement": false
+                },
+                "login": {
+                    "type": "STRING",
+                    "allowNull": true,
+                    "autoIncrement": false
+                }
+            },
+            "name": "Userws"
+        }
+    }
+}
