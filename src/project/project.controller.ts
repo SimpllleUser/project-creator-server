@@ -45,7 +45,7 @@ export class ProjectController {
   getDbModels(@Param('id') id: string) {
     return this.projectService.getDBModels(+id);
   }
-  @Patch(':id/db/models')
+  @Patch(':id/db/models/')
   patchDbModels(
     @Param('id') id: string,
     @Body() updateModelDto: UpdateProjectModelDto,

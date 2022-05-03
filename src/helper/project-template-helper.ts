@@ -34,7 +34,7 @@ export const updateModels = async (
   try {
     const modelBody = toModelData(body);
     await createFile(
-      `${modelsPath(id)}/${id}/models`,
+      `${projectsPath}/${id}/models`,
       `${body.name}.json`,
       JSON.stringify(modelBody, null, 4),
     );
