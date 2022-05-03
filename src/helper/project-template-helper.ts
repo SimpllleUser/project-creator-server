@@ -28,10 +28,17 @@ export const updateModels = async (
   id: number,
   { body }: { body: ModelParmas },
 ) => {
-  console.log(body.name);
-  await createFile(
-    `${projectsPath}/${id}/models`,
-    `${body.name}.json`,
-    JSON.stringify(toModelData(body), null, 4),
-  );
+  try {
+    const modelBody = toModelData(body);
+    await createFile(
+      `${projectsPath}/${id}/models`,
+      `${body.name}.json`,
+      JSON.stringify(modelBody, null, 4),
+    );
+    return body;
+  } catch (error) {
+    console.log(error);
+    throw Error;
+  }
+
 };

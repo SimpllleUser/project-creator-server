@@ -6,7 +6,7 @@
                 "paranoid": true,
                 "underscored": true,
                 "freezeTableName": true,
-                "tableName": "'users'"
+                "tableName": "'test-users'"
             },
             "fields": {
                 "id": {
@@ -25,11 +25,11 @@
                     "allowNull": true
                 },
                 "password": {
-                    "type": "STRING",
+                    "type": "VARCHAR",
                     "allowNull": true,
                     "autoIncrement": false
                 },
-                "login": {
+                "logins": {
                     "type": "STRING",
                     "allowNull": true,
                     "autoIncrement": false
