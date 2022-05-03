@@ -53,6 +53,11 @@ export class ProjectController {
     return this.projectService.updateDBModels(+id, updateModelDto);
   }
 
+  @Delete(':id/db/models/:modelName')
+  deleteModel(@Param('id') id: string, @Param('modelName') modelName: string) {
+    return this.projectService.deleteDBModels(+id, modelName);
+  }
+
   @Get(':id/db/tables')
   getDbTables(@Param('id') id: string) {
     return this.projectService.getDbTables(+id);

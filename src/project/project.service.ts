@@ -5,11 +5,13 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Project } from './entities/project.entity';
 import {
   createProjectTemplateById,
+  deleteModel,
   deleteProjectById,
   getModels,
   updateModels,
 } from '../helper/project-template-helper';
 import { ProjectDBService } from './project.db.service';
+import { async } from 'rxjs';
 
 @Injectable()
 export class ProjectService {
@@ -74,8 +76,13 @@ export class ProjectService {
     }
   }
 
-  async updateDBModels(id, updateModelDto) {
+  async updateDBModels(id: number, updateModelDto) {
     const result = await updateModels(id, updateModelDto);
+    return result;
+  }
+
+  async deleteDBModels(id: number, modelName: string) {
+    const result = await deleteModel(id, modelName);
     return result;
   }
 }
