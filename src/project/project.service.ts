@@ -76,7 +76,6 @@ export class ProjectService {
 
   async updateDBModels(id, updateModelDto) {
     const result = await updateModels(id, updateModelDto);
-    console.log('!', result);
     return result;
   }
 }
