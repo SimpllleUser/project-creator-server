@@ -19,9 +19,10 @@ export class ProjectService {
     const res = await projectDBService.getAllDataFromTables();
     console.log(res);
   }
+
   constructor(
     @InjectModel(Project) private projectRepository: typeof Project,
-  ) { }
+  ) {}
 
   async create(createProjectDto: CreateProjectDto) {
     const project = await this.projectRepository.create(createProjectDto);
@@ -89,5 +90,14 @@ export class ProjectService {
     const db = await new ProjectDBService(projectId);
     const result = await db.getAlltables();
     return result;
+  }
+
+  async updateDbTable({ id, name, rows }) {
+    const db = await new ProjectDBService(id);
+    await db.resetTableData(name);
+    await Promise.all(
+      rows.map(async (row) => await db.insertDataToTable(name, row)),
+    );
+    return { project: id, table: { name, rows } };
   }
 }

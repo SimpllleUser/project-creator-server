@@ -25,3 +25,6 @@ export class UpdateProjectModelDto {
 }
 
 export type CreateProjectModelDto = ModelParmas;
+export interface UpdateTableRow {
+  [key: string | number]: boolean | string | number;
+}

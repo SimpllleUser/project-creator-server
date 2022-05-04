@@ -10,11 +10,11 @@ import {
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { UpdateProjectModelDto } from './dto/project-model.dto';
+import { UpdateProjectModelDto, UpdateTableRow } from './dto/project-model.dto';
 
 @Controller('project')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) { }
+  constructor(private readonly projectService: ProjectService) {}
 
   @Post()
   create(@Body() createProjectDto: CreateProjectDto) {
@@ -70,6 +70,20 @@ export class ProjectController {
   ) {
     return this.projectService.getDbTable(+id, tableName);
   }
+  @Patch(':id/db/table/:tableName')
+  updateDbTableData(
+    @Param('id') id: number,
+    @Param('tableName') tableName: string,
+    @Body() body: { rows: [] },
+  ) {
+    console.log(body.rows);
+    return this.projectService.updateDbTable({
+      id: +id,
+      name: tableName,
+      rows: body.rows,
+    });
+  }
+
   @Get(':id/db/table')
   getAllTables(@Param('id') id: number) {
     return this.projectService.getTables(+id);

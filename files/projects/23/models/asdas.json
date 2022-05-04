@@ -10,7 +10,7 @@
             },
             "fields": {
                 "Test": {
-                    "type": "VARCHAR",
+                    "type": "BOOLEAN",
                     "allowNull": false
                 }
             },

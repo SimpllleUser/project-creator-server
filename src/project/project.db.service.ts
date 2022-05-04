@@ -51,7 +51,13 @@ export class ProjectDBService {
       return [];
     }
   }
-  async insertDataToTable(tableName: string, cols: string, values: string) {
+  async insertDataToTable(tableName: string, row) {
+    const cols = Object.keys(row).join(', ');
+    const values = Object.values(row).map(this.getColValue).join(', ');
+    console.log('---', row);
+    console.log('!!!', cols);
+    console.log('***', values);
+    console.log(Object.values(row));
     return (await this.db).exec(
       `INSERT INTO ${tableName} (${cols}) VALUES(${values});`,
     );
@@ -69,6 +75,10 @@ export class ProjectDBService {
     );
   }
 
+  async resetTableData(tableName) {
+    return (await this.db).exec(`DELETE FROM ${tableName};`);
+  }
+
   rowToSqlPramsAND(row) {
     return Object.keys(row)
       .map((key) => `${key}=${this.getColValue(row[key])}`)
@@ -76,7 +86,7 @@ export class ProjectDBService {
   }
 
   getColValue(value) {
-    typeof value === 'string' ? `'${value}'` : value;
+    return typeof value === 'string' ? `'${value}'` : value;
   }
 
   getColumn({ name, type, isNull, isUniq, isPrimaryKey }): string {
@@ -85,6 +95,7 @@ export class ProjectDBService {
     const primaryKey = isPrimaryKey ? 'PRIMARY KEY' : '';
     return `${name} ${type} ${nullable} ${uniq} ${primaryKey}`;
   }
+
   async closeDB() {
     return await (await this.db).close();
   }
