@@ -11,7 +11,6 @@ import {
   updateModels,
 } from '../helper/project-template-helper';
 import { ProjectDBService } from './project.db.service';
-import { async } from 'rxjs';
 
 @Injectable()
 export class ProjectService {
@@ -22,7 +21,7 @@ export class ProjectService {
   }
   constructor(
     @InjectModel(Project) private projectRepository: typeof Project,
-  ) {}
+  ) { }
 
   async create(createProjectDto: CreateProjectDto) {
     const project = await this.projectRepository.create(createProjectDto);
@@ -83,6 +82,12 @@ export class ProjectService {
 
   async deleteDBModels(id: number, modelName: string) {
     const result = await deleteModel(id, modelName);
+    return result;
+  }
+
+  async getTables(projectId: number) {
+    const db = await new ProjectDBService(projectId);
+    const result = await db.getAlltables();
     return result;
   }
 }

@@ -14,7 +14,7 @@ import { UpdateProjectModelDto } from './dto/project-model.dto';
 
 @Controller('project')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(private readonly projectService: ProjectService) { }
 
   @Post()
   create(@Body() createProjectDto: CreateProjectDto) {
@@ -69,6 +69,10 @@ export class ProjectController {
     @Param('tableName') tableName: string,
   ) {
     return this.projectService.getDbTable(+id, tableName);
+  }
+  @Get(':id/db/table')
+  getAllTables(@Param('id') id: number) {
+    return this.projectService.getTables(+id);
   }
 
   @Patch(':id')

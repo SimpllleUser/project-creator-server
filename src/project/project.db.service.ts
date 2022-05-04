@@ -38,9 +38,13 @@ export class ProjectDBService {
     return await (await this.db).all(`SELECT name FROM ${tableName};`);
   }
   async createTable({ tableName, columns }) {
-    const columnParmas = columns.map(this.getColumn).join(',');
+    const columnParams = Object.keys(columns)
+      ?.map((key) => ({ name: key, ...columns[key] }))
+      ?.map(this.getColumn)
+      ?.join(',');
+    console.log(columnParams);
     try {
-      (await this.db).exec(`CREATE TABLE ${tableName} (${columnParmas});`);
+      (await this.db).exec(`CREATE TABLE ${tableName} (${columnParams});`);
       return await this.getDataTable(tableName);
     } catch (err) {
       console.log(err);
@@ -75,11 +79,11 @@ export class ProjectDBService {
     typeof value === 'string' ? `'${value}'` : value;
   }
 
-  getColumn({ name, typeData, isNull, isUniq, isPrimaryKey }): string {
+  getColumn({ name, type, isNull, isUniq, isPrimaryKey }): string {
     const nullable = isNull ? 'NULL' : 'NOT NULL';
     const uniq = isUniq ? 'UNIQE' : '';
     const primaryKey = isPrimaryKey ? 'PRIMARY KEY' : '';
-    return `${name} ${typeData} ${nullable} ${uniq} ${primaryKey}`;
+    return `${name} ${type} ${nullable} ${uniq} ${primaryKey}`;
   }
   async closeDB() {
     return await (await this.db).close();

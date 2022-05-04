@@ -16,7 +16,7 @@
                     "allowNull": false
                 },
                 "username": {
-                    "type": "STRING",
+                    "type": "VARCHAR",
                     "allowNull": false,
                     "unique": true
                 },
@@ -24,7 +24,7 @@
                     "type": "STRING",
                     "allowNull": true
                 },
-                "password": {
+                "passwordss": {
                     "type": "STRING",
                     "allowNull": false
                 }
