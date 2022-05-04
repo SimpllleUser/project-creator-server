@@ -6,14 +6,14 @@ import {
   getSourceFiles,
   removeDirectory,
 } from './storage-helper';
-import { ProjectDBService } from "../project/project.db.service";
+import { ProjectDBService } from '../project/project.db.service';
+
 const projectConfigPath = './files/project-config';
 const projectsPath = './files/projects';
-const modelsPath = (id) => `${projectsPath}/${id}/models`; 
+const modelsPath = (id) => `${projectsPath}/${id}/models`;
 
 const getModelData = (modelConfig) => modelConfig?.source['source-code'];
 const toModelData = (model) => ({ ['source-code']: { model } });
-
 
 export const createProjectTemplateById = async (name) => {
   return await copySourceDirectoryToDirectory(
