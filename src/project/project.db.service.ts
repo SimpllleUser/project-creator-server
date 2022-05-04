@@ -47,6 +47,34 @@ export class ProjectDBService {
       return [];
     }
   }
+  async inserDataToTable(tableName: string, cols: string, values: string) {
+    return (await this.db).exec(
+      `INSERT INTO ${tableName} (${cols}) VALUES(${values});`,
+    );
+  }
+  async deleteDataFromTable(tableName: string, row) {
+    return (await this.db).exec(`
+    DELETE FROM ${tableName}
+    WHERE ${this.rowToSqlPramsAND(row)};`);
+  }
+  async updateDataFromTable(tableName: string, row, prevRow) {
+    return (await this.db).exec(
+      `UPDATE ${tableName} 
+       SET ${this.rowToSqlPramsAND(row)}
+       WHERE ${this.rowToSqlPramsAND(prevRow)};`,
+    );
+  }
+
+  rowToSqlPramsAND(row) {
+    return Object.keys(row)
+      .map((key) => `${key}=${this.getColValue(row[key])}`)
+      .join(' AND ');
+  }
+
+  getColValue(value) {
+    typeof value === 'string' ? `'${value}'` : value;
+  }
+
   getColumn({ name, typeData, isNull, isUniq, isPrimaryKey }): string {
     const nullable = isNull ? 'NULL' : 'NOT NULL';
     const uniq = isUniq ? 'UNIQE' : '';
