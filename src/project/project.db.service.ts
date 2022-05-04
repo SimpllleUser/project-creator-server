@@ -32,7 +32,7 @@ export class ProjectDBService {
     return await (await this.db).all(`PRAGMA table_info('${tableName}')`);
   }
   async getDataTable(tableName: string) {
-    return await (await this.db).all(`SELECT * FROM ${tableName};`);
+    return await (await this.db).all(`SELECT * FROM '${tableName}';`);
   }
   async getAllTableNames(tableName) {
     return await (await this.db).all(`SELECT name FROM ${tableName};`);
