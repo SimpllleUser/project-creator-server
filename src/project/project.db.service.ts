@@ -51,7 +51,7 @@ export class ProjectDBService {
       return [];
     }
   }
-  async inserDataToTable(tableName: string, cols: string, values: string) {
+  async insertDataToTable(tableName: string, cols: string, values: string) {
     return (await this.db).exec(
       `INSERT INTO ${tableName} (${cols}) VALUES(${values});`,
     );
